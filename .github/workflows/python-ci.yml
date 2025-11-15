@@ -2,9 +2,9 @@
 
 Ниже — полный минимальный проект на Python, включающий:
 
-* `app.py`
-* `tests/test_app.py`
-* `requirements.txt`
+* 'app.py'
+* 'tests/test_app.py'
+* 'requirements.txt'
 * `.github/workflows/python-ci.yml`
 
 Скопируй эти файлы к себе в репозиторий в те же пути.
