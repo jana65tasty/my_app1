@@ -1,0 +1,123 @@
+# Полный готовый проект для GitHub Actions CI
+
+Ниже — полный минимальный проект на Python, включающий:
+
+* `app.py`
+* `tests/test_app.py`
+* `requirements.txt`
+* `.github/workflows/python-ci.yml`
+
+Скопируй эти файлы к себе в репозиторий в те же пути.
+
+---
+
+## 📁 **app.py**
+
+```python
+def add(a, b):
+    return a + b
+
+if __name__ == "__main__":
+    print(add(2, 3))
+```
+
+---
+
+## 📁 **tests/test_app.py**
+
+Создай папку:
+
+```
+tests/
+```
+
+и файл `test_app.py`:
+
+```python
+from app import add
+
+def test_add():
+    assert add(2, 3) == 5
+```
+
+---
+
+## 📁 **requirements.txt**
+
+Минимальный для CI:
+
+```txt
+pytest
+```
+
+---
+
+## 📁 **.github/workflows/python-ci.yml**
+
+Создай папку:
+
+```
+.github/workflows/
+```
+
+и файл:
+
+```
+python-ci.yml
+```
+
+Содержимое:
+
+```yaml
+name: Python CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          mkdir -p test-results
+          pytest --junitxml=test-results/report.xml
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: test-results/report.xml
+```
+
+---
+
+## ✅ Готово!
+
+После того как ты создашь эти файлы и сделаешь **commit + push в main**, GitHub автоматически запустит CI и тесты.
+
+Если хочешь — могу добавить:
+
+* версию с **Docker build + push**
+* с **деплоем на сервер/VPS**
+* с **pytest-cov (coverage report)**
+* с ML-проектом (numpy, sklearn, torch)
+* с FastAPI или Django CI/CD
+
+Просто скажи.
